@@ -41,8 +41,9 @@ Function Restart-AsAdministrator(){
 
         Write-Warning "Restarting script with Administrator privileges"
         
-        $newProcess = New-Object System.Diagnostics.ProcessStartInfo "PowerShell";
-        $newProcess.Arguments = "& '" + $script:MyInvocation.MyCommand.Path + "'"
+        $currentProcess = [System.Diagnostics.Process]::GetCurrentProcess()
+        $newProcess = New-Object System.Diagnostics.ProcessStartInfo $currentProcess.Path;
+        $newProcess.Arguments = "-file " + $script:MyInvocation.MyCommand.Path
         $newProcess.Verb = "runas"
 
         [System.Diagnostics.Process]::Start($newProcess)
