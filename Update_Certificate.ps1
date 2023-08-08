@@ -140,8 +140,12 @@ Function Import-Certificate(){
 
     try {
         
-        $drive = Split-Path (Get-Location) -qualifier
+		$location = $PSScriptRoot
+		$drive = Split-Path ($location) -qualifier
         $filePath = "$drive\_GIT\psol-core-database\PSolCoreDatabase\Security\${CERTIFICATE_NAME}"
+
+        Write-host "certificate path : " $filePath
+        Write-Host ([Environment]::NewLine)
         
         $certPassword = "Password"
         $password = ConvertTo-SecureString $certPassword -AsPlainText -Force
